@@ -3,7 +3,12 @@
 #Date:
 
 #1. (Var) Setup the empty board as a list
-theBoard = []
+theBoard = [' ']*10
+
+
+
+
+
 
 #2. (fun) Print the board.
 #in: a 10 item list (either x, o or ' ')
@@ -11,7 +16,16 @@ theBoard = []
 #out: none
 
 def printBoard(board):
-    pass
+  print(board[7] + ' |' + board[8] + '|' + board [9])
+  print(' -+-+-')
+  print(board[4] + ' |' + board[5] + '|' + board [6])
+  print(' -+-+-')
+  print(board[1] + ' |' + board[2] + '|' + board[3])
+   
+
+
+
+
 
 #3a. (fun) Determine if player is X or O
 player1 = ''
@@ -22,12 +36,17 @@ player2 = ''
 #out: None
 
 def chooseLetter():
-    pass
+  global player1
+  global player2
+  letter = input('Enter X or O for player 1')
+  if letter == 'X' :
+     player1= 'X'
+     player2= 'O'
+  else  :
+     player1= 'O'
+     player2= 'X'
 
 
-#3b. (fun) Choose starting player 1 or 2
-def chooseStart():
-    pass
 
 #4. (fun) Get player move
 #in: board as list, player as X or O
@@ -37,7 +56,14 @@ def chooseStart():
 #out: none
 
 def playerMove(board, player):
-    pass
+   turn = int(input("Player" + player + ", make a move between 1-9 "))
+   while board[turn] != ' ':
+     printBoard(theBoard)
+     turn = input('That spot is taken, choose a different one')
+   board[turn] = player
+   printBoard(theBoard)
+
+  
 
 
 #5. (fun) Check Winner
@@ -46,8 +72,24 @@ def playerMove(board, player):
 #out: True for win, False otherwise
     
 def checkWin(board, player):
-    pass
-
+    if board[1] == player and board[2] == player and board[3] == player:
+      return True
+    elif board[4] == player and board[5] == player and board[6] == player:
+      return True
+    elif board[7] == player and board[8] == player and board[3] == player:
+      return True
+    elif board[1] == player and board[4] == player and board[7] == player:
+      return True
+    elif board[2] == player and board[5] == player and board[8] == player:
+      return True
+    elif board[3] == player and board[6] == player and board[9] == player:
+      return True
+    elif board[7] == player and board[5] == player and board[3] == player:
+      return True
+    elif board[1] == player and board[5] == player and board[9] == player:
+      return True
+    else : return False
+       
 
 #6. (fun) Check if board is full
 #Because there are 10 list items for 9 spots,
@@ -57,11 +99,33 @@ def checkWin(board, player):
 #out: return True if board is full, False otherwise
 
 def checkFull(board):
-    pass
+  if board.count(' ') == 1:
+    return True
+  else:
+    return False
 
 #7. Main function
 
 def main():
+  print('Welcome to 1v1 Tic Tac Toe. ')
+  chooseLetter()
+
+  while checkFull(theBoard) != True:
+    playerMove(theBoard, player1)
+    if checkWin(theBoard, player1) == True:
+      print('Congratulations on winning, Player 1')
+      break
+    if checkFull(theBoard) != False:
+      print("It is a draw")
+      break
+    playerMove(theBoard, player2)
+    if checkWin(theBoard, player2) == True:
+      print('Congratulations on winning, Player 1')
+      break
+    if checkFull(theBoard) != False:
+      print("It is a draw")
+      break
+main()
     #print Welcome
     #print instructions
 
@@ -79,7 +143,6 @@ def main():
         #player chooses move
         #print baord
         #check win
+  
     
-    
-    pass
-
+   
